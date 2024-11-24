@@ -1,25 +1,21 @@
 <script lang="ts" setup>
-const { getLatestArticles } = useBlogArticle();
+import type { ArticleCustomContent } from "~/types/BlogArticles";
 
-const posts = ref<ArticleCustomContent[]>([]);
-const loading = ref<boolean>(false);
-
-onMounted(async () => {
-	loading.value = true;
-	const articles = await getLatestArticles(2);
-
-	if (articles) {
-		posts.value = articles;
-	}
-
-	loading.value = false;
+useHead({
+	title: "Writings",
 });
+
+const { data: posts } = await useAsyncData("posts", () =>
+	queryContent<ArticleCustomContent>("/writes")
+		.sort({ date: -1 })
+		.limit(5)
+		.find(),
+);
 </script>
 
 <template>
-  <div v-for="post in posts">
-    <NuxtLink :to="post._path">
-      {{ post.title }}
-    </NuxtLink>
-  </div>
+<div>
+	<ArticlesList v-if="posts && posts.length" :posts="posts" />
+	<div v-else>No articles found...</div>
+</div>
 </template>

@@ -6,7 +6,7 @@ const loading = ref<boolean>(false);
 
 onMounted(async () => {
 	loading.value = true;
-	const articles = await getLatestArticles(5);
+	const articles = await getLatestArticles(2);
 
 	if (articles) {
 		posts.value = articles;

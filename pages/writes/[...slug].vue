@@ -23,7 +23,7 @@ onMounted(async () => {
 <template>
   <main>
     <ContentRenderer v-if="data" :value="data">
-		<h1>{{ data.title }}</h1>
+		<h1>{{ data.title }} - {{ data.date }}</h1>
 		<ContentRendererMarkdown :value="data" />
 	</ContentRenderer>
   </main>

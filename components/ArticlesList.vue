@@ -10,9 +10,9 @@ defineProps<Props>();
 
 <template>
 	<h1 class="font-bold font-newsreader text-2xl text-peach">Read my stuff</h1>
-	<div v-for="post in posts">
-		<NuxtLink class="hover:text-peach hover:underline" :to="post._path">
-			{{ post.title }}
+	<div v-for="(p, idx) in posts" :key="idx">
+		<NuxtLink class="hover:text-peach hover:underline" :to="p._path">
+			{{ p.title }}
 		</NuxtLink>
 	</div>
 </template>

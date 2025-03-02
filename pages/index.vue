@@ -76,7 +76,7 @@ const { data: projects } = await useAsyncData("projects", () =>
     </main>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .title {
     @apply text-2xl text-peach font-bold font-newsreader mb-4;
 }

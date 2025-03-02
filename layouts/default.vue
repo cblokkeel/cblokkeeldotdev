@@ -10,7 +10,7 @@ const links = ref<Link[]>([
         to: "/"
     },
     {
-        label: "Resumé",
+        label: "Résumé",
         to: "/resume"
     },
     {

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { ArticleCustomContent } from "~/types/BlogArticles";
+import type { ProjectCustomContent } from "~/types/Projects";
 
 const { data: posts } = await useAsyncData("posts", () =>
 	queryContent<ArticleCustomContent>("/writes")
@@ -7,10 +8,13 @@ const { data: posts } = await useAsyncData("posts", () =>
 		.limit(3)
 		.find(),
 );
+
+const { data: projects } = await useAsyncData("projects", () =>
+	queryContent<ProjectCustomContent>("/projects").find(),
+);
 </script>
 
 <template>
-
     <main class="flex flex-col gap-8">
         <section>
             <h2 class="title">About me</h2>
@@ -43,8 +47,14 @@ const { data: posts } = await useAsyncData("posts", () =>
 
             <p>Here are some projects that I can proudly show :</p>
 
-            <div class="flex flex-col gap-4">
-                <div></div>
+            <div class="flex flex-col gap-4 mt-4">
+                <ProjectShowcase v-for="(p, idx) in projects" :key="idx" :project="{
+                        title: p.title as string,
+                        description: p.description,
+                        technos: p.technos,
+                        links: p.links,
+                    }" 
+                />
             </div> 
         </section>
 
@@ -68,6 +78,6 @@ const { data: posts } = await useAsyncData("posts", () =>
 
 <style lang="scss" scoped>
 .title {
-    @apply text-2xl text-peach font-bold font-newsreader mb-6;
+    @apply text-2xl text-peach font-bold font-newsreader mb-4;
 }
 </style>

@@ -21,9 +21,9 @@ const links = ref<Link[]>([
 </script>
 
 <template>
-    <header class="flex flex-col justify-center gap-4 h-48 px-12 md:px-24">
+    <header class="flex flex-col justify-center gap-4 h-48 px-12 md:px-72">
         <div class="flex justify-between w-full">
-            <h1 class="flex items-center font-newsreader text-black h-10 px-8 bg-peach rounded-sm w-fit">
+            <h1 class="flex items-center text-base font-bold h-10 px-8 bg-peach rounded-sm w-fit">
                 <NuxtLink to="/">
                     Colin Blokkeel
                 </NuxtLink>
@@ -50,7 +50,7 @@ const links = ref<Link[]>([
         </nav>
     </header>
 
-	<div class="px-12 md:px-24">
+	<div class="px-12 md:px-72">
 		<slot />
 	</div>
 

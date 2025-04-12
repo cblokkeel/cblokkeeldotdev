@@ -4,6 +4,7 @@ services:
     command:
       - "--providers.docker"
       - "--providers.docker.exposedbydefault=false"
+      - "--providers.docker.network=traefik-public"
       - "--entryPoints.websecure.address=:443"
       - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
       - "--certificatesresolvers.myresolver.acme.email=cblokkeel1@gmail.com"
@@ -23,22 +24,34 @@ services:
     volumes:
       - letsencrypt:/letsencrypt
       - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - traefik-public
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
 
   server:
-    image: 
-      cblokkeel/cblokkeeldotdev:latest
+    image: cblokkeel/cblokkeeldotdev:latest
     labels:
       - "traefik.enable=true"
-      - "traefik.http.services.web.loadbalancer.server.port=3000"
-      - "traefik.http.routers.web.rule=Host(`cblokkeel.dev`)"
-      - "traefik.http.routers.web.entrypoints=websecure"
-      - "traefik.http.routers.web.tls.certresolver=myresolver"
+      - "traefik.http.services.cblokkeel.loadbalancer.server.port=3000"
+      - "traefik.http.routers.cblokkeel.rule=Host(`cblokkeel.dev`)"
+      - "traefik.http.routers.cblokkeel.entrypoints=websecure"
+      - "traefik.http.routers.cblokkeel.tls.certresolver=myresolver"
+      - "traefik.docker.network=traefik-public"
     environment:
       NODE_ENV: production
+    networks:
+      - traefik-public
     deploy:
       update_config:
         order: start-first
 
+networks:
+  traefik-public:
+    external: true
+
 volumes:
-  db-data:
   letsencrypt:
+

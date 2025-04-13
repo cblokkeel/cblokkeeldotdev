@@ -25,7 +25,9 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: ghcr.io/cblokkeel/cblokkeeldotdev:latest
+          tags: |
+            ghcr.io/cblokkeel/cblokkeeldotdev:latest
+            ghcr.io/cblokkeel/cblokkeeldotdev:${{ github.sha }}
 
   deploy:
     runs-on: ubuntu-latest
@@ -33,6 +35,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
+      - name: Create env file
+        run: |
+          echo "GIT_COMMIT_HASH=${{ github.sha }}" >> ./envfile
 
       - name: Docker stack deploy
         uses: cssnr/stack-deploy-action@v1
@@ -42,4 +48,5 @@ jobs:
           host: cblokkeel.dev
           user: deploy
           ssh_key: ${{ secrets.DEPLOY_SSH_KEY }}
+          env_file: ./envfile
 

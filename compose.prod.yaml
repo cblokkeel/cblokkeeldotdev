@@ -32,7 +32,7 @@ services:
           - node.role == manager
 
   server:
-    image: cblokkeel/cblokkeeldotdev:latest
+    image: ghcr.io/cblokkeel/cblokkeeldotdev:latest
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.cblokkeel.loadbalancer.server.port=3000"

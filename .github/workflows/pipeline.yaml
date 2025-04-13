@@ -26,3 +26,20 @@ jobs:
         with:
           push: true
           tags: ghcr.io/cblokkeel/cblokkeeldotdev:latest
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build-and-push
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Docker stack deploy
+        uses: cssnr/stack-deploy-action@v1
+        with:
+          name: cblokkeeldotdev
+          file: compose.prod.yaml
+          host: cblokkeel.dev
+          user: deploy
+          ssh_key: ${{ secrets.DEPLOY_SSH_KEY }}
+

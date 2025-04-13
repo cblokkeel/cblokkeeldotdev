@@ -26,11 +26,12 @@ technos:
 ---
 
 Working as a full‑stack developer, building a Figma-like editor to allow users, primarily factories, to create screens to monitor their production.<br>
-The tech stack we used 
+The tech stack we're using : 
 
 - Frontend using Vue
 - Express main API
 - Multiple APIs in golang to handle auth / administration
-- Workers in golang to fetch data from multiple sources
+- Workers in golang to fetch and process data from multiple sources
 - Docker and helm for deployment
 
+Transitioned from working independently to a two-person team, mentoring and collaborating with a junior developer.

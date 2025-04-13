@@ -1,13 +1,5 @@
 <script setup lang="ts">
-import type { ArticleCustomContent } from "~/types/BlogArticles";
 import type { ProjectCustomContent } from "~/types/Projects";
-
-const { data: posts } = await useAsyncData("posts", () =>
-	queryContent<ArticleCustomContent>("/writes")
-		.sort({ date: -1 })
-		.limit(3)
-		.find(),
-);
 
 const { data: projects } = await useAsyncData("projects", () =>
 	queryContent<ProjectCustomContent>("/projects").find(),
@@ -15,7 +7,7 @@ const { data: projects } = await useAsyncData("projects", () =>
 </script>
 
 <template>
-    <main class="flex flex-col gap-8">
+    <main class="flex flex-col gap-12">
         <section>
             <h2 class="title">About me</h2>
             <div class="flex flex-col gap-2 text-justify">
@@ -29,7 +21,7 @@ const { data: projects } = await useAsyncData("projects", () =>
                 </p>
 
                 <p>
-                    When I’m not coding, you can find me exploring new movies, writing on my blog, cooking, or simply vibing with video games.
+                    When I’m not coding, you can find me exploring new movies, cooking, or simply vibing with video games.
                 </p>
 
                 <p>
@@ -44,34 +36,18 @@ const { data: projects } = await useAsyncData("projects", () =>
 
         <section>
             <h2 class="title">Projects</h2>
-
             <p>Here are some projects that I can proudly show :</p>
 
-            <div class="flex flex-col gap-4 mt-4">
+            <div class="flex flex-col gap-6 mt-8">
                 <ProjectShowcase v-for="(p, idx) in projects" :key="idx" :project="{
                         title: p.title as string,
                         description: p.description,
                         technos: p.technos,
                         links: p.links,
+                        coming_soon: p.coming_soon,
                     }" 
                 />
             </div> 
-        </section>
-
-        <section>
-            <h2 class="title">Latest writes</h2>
-
-            <ul>
-                <li 
-                    v-for="(p, idx) in posts" 
-                    :key="idx"
-                    class="underline cursor-pointer hover:text-peach w-fit"
-                >
-                    <NuxtLink :to="p._path">
-                        {{ p.date }} | {{ p.title }}
-                    </NuxtLink>
-                </li>
-            </ul>
         </section>
     </main>
 </template>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { vTooltip } from 'floating-vue'
+import { vTooltip } from "floating-vue";
 
 interface Project {
 	title: string;
@@ -8,10 +8,11 @@ interface Project {
 		name: string;
 		icon: string;
 	}[];
-    links: {
-        type: "git" | "web";
-        url: string;
-    }[];
+	links: {
+		type: "git" | "web";
+		url: string;
+	}[];
+    coming_soon?: boolean;
 }
 
 defineProps<{ project: Project }>();
@@ -19,7 +20,6 @@ defineProps<{ project: Project }>();
 
 <template>
     <div class="flex flex-col gap-1 items-start">
-
         <div class="flex justify-between items-center gap-2 w-full">
             <h3 class="text-xl text-peach font-newsreader font-bold truncate w-[90%]">{{ project.title }}</h3>
             <div class="flex gap-2 items-center justify-center">
@@ -34,7 +34,7 @@ defineProps<{ project: Project }>();
 
         <p class="text-justify">{{ project.description }}</p>
 
-        <div class="flex gap-2 mt-1">
+        <div class="flex items-center gap-2 mt-1">
             <NuxtLink
                 v-for="(l, idx) in project.links"
                 :key="idx"
@@ -45,6 +45,13 @@ defineProps<{ project: Project }>();
                     <Icon v-if="l.type === 'git'" name="pixelarticons:github-2" class="w-5 h-5" />
                     <Icon v-if="l.type === 'web'" name="pixelarticons:external-link" class="w-5 h-5" />
             </NuxtLink>
+            
+            <Icon 
+                v-if="project.coming_soon"
+                name="pixelarticons:external-link"
+                class="w-5 h-5 text-gray-400" 
+                v-tooltip="'Coming soon'"
+            />
         </div>
     </div>
 </template>

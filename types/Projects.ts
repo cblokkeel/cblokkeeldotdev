@@ -10,4 +10,5 @@ export interface ProjectCustomContent extends ParsedContent {
         type: "git" | "web";
         url: string;
     }[];
+    coming_soon?: boolean;
 }

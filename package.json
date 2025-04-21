@@ -12,6 +12,7 @@
   "dependencies": {
     "@nuxt/content": "^2.13.4",
     "@nuxt/icon": "1.10.3",
+    "@vueuse/motion": "^3.0.3",
     "floating-vue": "^5.2.2",
     "nuxt": "^3.14.1592"
   },

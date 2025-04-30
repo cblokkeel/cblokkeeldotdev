@@ -46,6 +46,41 @@ const { data: projects } = await useAsyncData("projects", () =>
             </div>
         </section>
 
+        <section
+            v-motion
+            :initial="{ opacity: 0, y: 50 }"
+            :visible-once="{
+            opacity: 1,
+            y: 0,
+            transition: {
+                    duration: 500,
+                    ease: 'easeOut',
+                    delay: 100,
+                },
+            }"
+        >       
+            <h2 class="title">Socials</h2>
+            <div class="flex gap-4">
+                <NuxtLink 
+                    to="https://github.com/cblokkeel" 
+                    target="_blank" 
+                    v-tooltip="'Github'"
+                    class="hover:scale-105"
+                >
+                    <Icon name="mdi:github" class="w-10 h-10" /> 
+                </NuxtLink>
+
+                <NuxtLink 
+                    to="https://bsky.app/profile/cblokkeel.dev" 
+                    target="_blank" 
+                    v-tooltip="'Bluesky'"
+                    class="hover:scale-105"
+                >
+                    <Icon name="logos:bluesky" class="w-10 h-10" /> 
+                </NuxtLink>
+            </div>
+        </section>
+
         <section>
             <div
                 v-motion
@@ -77,7 +112,7 @@ const { data: projects } = await useAsyncData("projects", () =>
                     }" 
                     v-motion
                     :initial="{ opacity: 0, y: 50 }"
-                    :visible-once="{
+                    :enter="{
                         opacity: 1,
                         y: 0,
                         transition: {

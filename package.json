@@ -14,7 +14,8 @@
     "@nuxt/icon": "1.10.3",
     "@vueuse/motion": "^3.0.3",
     "floating-vue": "^5.2.2",
-    "nuxt": "^3.14.1592"
+    "nuxt": "^3.14.1592",
+    "posthog-js": "^1.242.1"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",

@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import type { WorkCustomContent } from '~/types/Works';
 
+usePosthog();
+
 const { data: works } = await useAsyncData("works", () =>
 	queryContent<WorkCustomContent>("/works")
 		.sort({ to_date: -1 })

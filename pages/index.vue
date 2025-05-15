@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import type { ProjectCustomContent } from "~/types/Projects";
 
+usePosthog();
+
 const { data: projects } = await useAsyncData("projects", () =>
 	queryContent<ProjectCustomContent>("/projects").find(),
 );

@@ -1,10 +1,10 @@
 <script setup lang="ts">
 interface Link {
-    label: string;
-    to: string;
+	label: string;
+	to: string;
 }
 
-const links = ref<Link[]>([
+/*const links = ref<Link[]>([
     {
         label: "About me",
         to: "/"
@@ -13,7 +13,9 @@ const links = ref<Link[]>([
         label: "Résumé",
         to: "/resume"
     },
-]);
+]); */
+
+const links = ref<Link[]>([]);
 </script>
 
 <template>

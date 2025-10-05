@@ -33,7 +33,7 @@ technos:
       icon: logos:prometheus
 ---
 
-Working as a full‑stack developer for Auchan, my team was responsible for building, deploying, and maintaining features for the e-commerce website auchan.fr. The website was built using a hexagonal architecture. My team managed the following microservices :   
+Working as a full‑stack developer for Auchan, one of the largest France e-commerce website, my team was responsible for building, deploying, and maintaining features for the e-commerce website auchan.fr. The website was built using a hexagonal architecture. My team managed the following microservices :   
     
 - **Customer Contextualization**: Guiding customer journey choices from drive to home delivery.
 - **Store Data**: Managing and updating information related to different stores.

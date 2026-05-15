@@ -3,7 +3,7 @@ company_name: "Pingflow"
 company_url: "https://www.linkedin.com/company/pingflow"
 job_title: "Fullstack Developer"
 from_date: "02-2024"
-to_date: "Now"
+to_date: "06-2025"
 technos: 
     - name: Typescript 
       icon: logos:typescript-icon

@@ -40,7 +40,7 @@ defineProps<{ project: Project }>();
                 :key="idx"
                 :href="l.url"
                 target="_blank"
-                class="hover:text-peach hover:scale-110"
+                class="hover:text-peach hover:scale-110 transition-transform duration-150 ease"
             >
                     <Icon v-if="l.type === 'git'" name="pixelarticons:github-2" class="w-5 h-5" />
                     <Icon v-if="l.type === 'web'" name="pixelarticons:external-link" class="w-5 h-5" />

@@ -11,23 +11,34 @@ const { data: works } = await useAsyncData("works", () =>
 const { data: projects } = await useAsyncData("projects", () =>
 	queryContent<ProjectCustomContent>("/projects").find(),
 );
+
+const reducedMotion = ref(false);
+
+onMounted(() => {
+	if (typeof window === 'undefined') return;
+	const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+	reducedMotion.value = mediaQuery.matches;
+	mediaQuery.addEventListener('change', (e) => {
+		reducedMotion.value = e.matches;
+	});
+});
 </script>
 
 <template>
     <main class="flex flex-col gap-12">
         <section
             v-motion
-            :initial="{ opacity: 0, y: 50 }"
+            :initial="reducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }"
             :visible-once="{
-            opacity: 1,
-            y: 0,
-            transition: {
-                    duration: 500,
-                    ease: 'easeOut',
+                opacity: 1,
+                y: 0,
+                transition: {
+                    duration: 250,
+                    ease: [0.215, 0.61, 0.355, 1],
                     delay: 100,
                 },
             }"
-        >       
+        >
             <h2 class="title">About me</h2>
             <div class="flex flex-col gap-2 text-justify">
                 <p class="mb-2 text-xl">Hello and welcome!</p>
@@ -52,69 +63,69 @@ const { data: projects } = await useAsyncData("projects", () =>
 
         <section
             v-motion
-            :initial="{ opacity: 0, y: 50 }"
+            :initial="reducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }"
             :visible-once="{
-            opacity: 1,
-            y: 0,
-            transition: {
-                    duration: 500,
-                    ease: 'easeOut',
+                opacity: 1,
+                y: 0,
+                transition: {
+                    duration: 250,
+                    ease: [0.215, 0.61, 0.355, 1],
                     delay: 100,
                 },
             }"
         >
             <h2 class="title">My work</h2>
             <div class="flex flex-col gap-12 text-justify">
-                <WorkShowcase 
-                    v-for="(w, idx) in works" 
-                    :key="idx" 
-                    :work="w" 
+                <WorkShowcase
+                    v-for="(w, idx) in works"
+                    :key="idx"
+                    :work="w"
                     v-motion
-                    :initial="{ opacity: 0, y: 50 }"
+                    :initial="reducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }"
                     :visible-once="{
                         opacity: 1,
                         y: 0,
                         transition: {
-                            duration: 500,
-                            ease: 'easeOut',
-                            delay: 200 + idx * 175,
+                            duration: 250,
+                            ease: [0.215, 0.61, 0.355, 1],
+                            delay: 100 + idx * 100,
                         },
                     }"
                 />
             </div>
         </section>
 
-                <section
+        <section
             v-motion
-            :initial="{ opacity: 0, y: 50 }"
+            :initial="reducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }"
             :visible-once="{
-            opacity: 1,
-            y: 0,
-            transition: {
-                    duration: 500,
-                    ease: 'easeOut',
+                opacity: 1,
+                y: 0,
+                transition: {
+                    duration: 250,
+                    ease: [0.215, 0.61, 0.355, 1],
                     delay: 100,
                 },
             }"
-        >       
+        >
             <h2 class="title">Socials</h2>
             <div class="flex gap-4">
-                <NuxtLink 
-                    to="https://github.com/cblokkeel" 
-                    target="_blank" 
+                <NuxtLink
+                    to="https://github.com/cblokkeel"
+                    target="_blank"
                     v-tooltip="'Github'"
-                    class="hover:scale-105"
+                    class="hover:scale-105 transition-transform duration-150 ease"
                 >
-                    <Icon name="mdi:github" class="w-10 h-10" /> 
+                    <Icon name="mdi:github" class="w-10 h-10" />
                 </NuxtLink>
 
-                <NuxtLink 
-                    to="https://bsky.app/profile/cblokkeel.dev" 
-                    target="_blank" 
+                <NuxtLink
+                    to="https://bsky.app/profile/cblokkeel.dev"
+                    target="_blank"
                     v-tooltip="'Bluesky'"
-                    class="hover:scale-105"
+                    class="hover:scale-105 transition-transform duration-150 ease"
                 >
-                    <Icon name="logos:bluesky" class="w-10 h-10" /> 
+                    <Icon name="logos:bluesky" class="w-10 h-10" />
                 </NuxtLink>
             </div>
         </section>
@@ -124,13 +135,13 @@ const { data: projects } = await useAsyncData("projects", () =>
         <section>
             <div
                 v-motion
-                :initial="{ opacity: 0, y: 50 }"
+                :initial="reducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }"
                 :visible-once="{
                     opacity: 1,
                     y: 0,
                     transition: {
-                        duration: 500,
-                        ease: 'easeOut',
+                        duration: 250,
+                        ease: [0.215, 0.61, 0.355, 1],
                         delay: 200,
                     },
                 }"
@@ -140,8 +151,8 @@ const { data: projects } = await useAsyncData("projects", () =>
             </div>
 
             <div class="flex flex-col gap-6 mt-8">
-                <ProjectShowcase 
-                    v-for="(p, idx) in projects" 
+                <ProjectShowcase
+                    v-for="(p, idx) in projects"
                     :key="idx"
                     :project="{
                         title: p.title as string,
@@ -149,16 +160,16 @@ const { data: projects } = await useAsyncData("projects", () =>
                         technos: p.technos,
                         links: p.links,
                         coming_soon: p.coming_soon,
-                    }" 
+                    }"
                     v-motion
-                    :initial="{ opacity: 0, y: 50 }"
+                    :initial="reducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }"
                     :enter="{
                         opacity: 1,
                         y: 0,
                         transition: {
-                            duration: 500,
-                            ease: 'easeOut',
-                            delay: 300 + idx * 150,
+                            duration: 250,
+                            ease: [0.215, 0.61, 0.355, 1],
+                            delay: 300 + idx * 100,
                         },
                     }"
                 />

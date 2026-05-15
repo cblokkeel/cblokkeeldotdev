@@ -1,7 +1,12 @@
 <script setup lang="ts">
 import type { ProjectCustomContent } from "~/types/Projects";
+import type { WorkCustomContent } from "~/types/Works";
 
 usePosthog();
+
+const { data: works } = await useAsyncData("works", () =>
+	queryContent<WorkCustomContent>("/works").sort({ to_date: -1 }).find(),
+);
 
 const { data: projects } = await useAsyncData("projects", () =>
 	queryContent<ProjectCustomContent>("/projects").find(),
@@ -31,7 +36,7 @@ const { data: projects } = await useAsyncData("projects", () =>
                 </p>
 
                 <p>
-                    At the moment, I am coding a lot in <strong>Go</strong> and <strong>Typescript</strong>. These languages allow me to quickly build great products while maintaining reliable and efficient code. I also have strong knowledge of <strong>Java</strong> and object-oriented programming. I usually use <strong>Nuxt 3</strong> when I'm working on frontend projects.
+                I code mostly in <strong>Go</strong> and <strong>TypeScript</strong>, which allow me to build fast, reliable software. For frontend projects, I often use Nuxt 3 and am currently exploring SvelteKit. I also have strong foundations in Java and object‑oriented programming.
                 </p>
 
                 <p>
@@ -39,16 +44,47 @@ const { data: projects } = await useAsyncData("projects", () =>
                 </p>
 
                 <p>
-                    I currently contribute my skills at <strong>Pingflow</strong>, where we’re building a Figma-like editor to allow users, primarily factories, to create screens to monitor their production. I also worked for <strong>Auchan</strong>, where I played a key role in building and maintaining  <NuxtLink to="https://auchan.fr" class="underline" target="_blank">one of the largest e-commerce website in France</NuxtLink>.
-                </p>
-
-                <p>
-                    Feel free to browse my <NuxtLink to="/resume" class="underline">résumé</NuxtLink> for more details. Thanks for stopping by, and I hope you enjoy your visit!
+                    Thanks for stopping by, and I hope you enjoy your visit!
                 </p>
             </div>
         </section>
 
+
         <section
+            v-motion
+            :initial="{ opacity: 0, y: 50 }"
+            :visible-once="{
+            opacity: 1,
+            y: 0,
+            transition: {
+                    duration: 500,
+                    ease: 'easeOut',
+                    delay: 100,
+                },
+            }"
+        >
+            <h2 class="title">My work</h2>
+            <div class="flex flex-col gap-12 text-justify">
+                <WorkShowcase 
+                    v-for="(w, idx) in works" 
+                    :key="idx" 
+                    :work="w" 
+                    v-motion
+                    :initial="{ opacity: 0, y: 50 }"
+                    :visible-once="{
+                        opacity: 1,
+                        y: 0,
+                        transition: {
+                            duration: 500,
+                            ease: 'easeOut',
+                            delay: 200 + idx * 175,
+                        },
+                    }"
+                />
+            </div>
+        </section>
+
+                <section
             v-motion
             :initial="{ opacity: 0, y: 50 }"
             :visible-once="{
@@ -82,7 +118,9 @@ const { data: projects } = await useAsyncData("projects", () =>
                 </NuxtLink>
             </div>
         </section>
+        
 
+        <!--
         <section>
             <div
                 v-motion
@@ -126,6 +164,7 @@ const { data: projects } = await useAsyncData("projects", () =>
                 />
             </div> 
         </section>
+            -->
     </main>
 </template>
 

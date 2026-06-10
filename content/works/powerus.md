@@ -1,7 +1,7 @@
 ---
 company_name: "Powerus"
 company_url: "https://www.powerus.de"
-job_title: "Software Engineer"
+job_title: "Designe"
 from_date: "07-2025"
 to_date: "Now"
 technos:
